@@ -1,7 +1,8 @@
 import api from "../services";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { notifyError, notifySucess } from "../components/Toasts";
+import jwt_decode from "jwt-decode";
 
 // Interface para tipar o contexto:
 
@@ -12,7 +13,8 @@ interface IUserContext {
   token: string | null;
   user: UserData | null;
   editUser: (data: IEditFunction) => void;
-  deleteUser: (data: IEditFunction) => void;
+  deleteUser: () => void;
+  getUser: (id: string) => void;
 }
 
 // Interface para tipar as props:
@@ -47,7 +49,8 @@ export interface ILoginFunction {
 }
 
 interface ILoginResponse {
-  token: string;
+  access: string;
+  refresh: string;
 }
 
 export interface IEditFunction {
@@ -66,7 +69,10 @@ export const UserContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserProvider = ({ children }: IUserProps) => {
   const [user, setUser] = useState<UserData | null>(null);
+  const [update, setUpdate] = useState<UserData | null>(null);
   const token = localStorage.getItem("@TOKEN");
+  const id = localStorage.getItem("@id");
+
   const navigate = useNavigate();
 
   function registerUser(data: IRegisterFunction) {
@@ -86,9 +92,11 @@ export const UserProvider = ({ children }: IUserProps) => {
       .post<ILoginResponse>("/login/", data)
       .then((res) => {
         notifySucess("Login realizado com sucesso!");
-        window.localStorage.setItem("@TOKEN", res.data.token);
+        localStorage.setItem("@TOKEN", res.data.access);
+        const token = res.data.access;
+        let decode: any = jwt_decode(token);
+        localStorage.setItem("@id", decode.user_id);
         navigate("/home", { replace: true });
-        setUser(data);
       })
       .catch((err) => {
         notifyError("Email ou senha incorretos...");
@@ -96,29 +104,23 @@ export const UserProvider = ({ children }: IUserProps) => {
   }
 
   function editUser(data: IEditFunction) {
-    const token = localStorage.getItem("@TOKEN");
-    const id = localStorage.getItem("@id");
-
     api
-      .patch(`/users/${String(id)}`, data, {
+      .patch(`/users/${String(id)}/`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
+        setUpdate(res.data);
         notifySucess("Alteração realizado com sucesso!");
-        setUser(res.data);
       })
       .catch((err) => console.log(err));
     notifyError("Não foi possível alterar seus dados!");
   }
 
   function deleteUser() {
-    const token = localStorage.getItem("@TOKEN");
-    const id = localStorage.getItem("@id");
-
     api
-      .delete(`/users/${String(id)}`, {
+      .delete(`/users/${String(id)}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -132,10 +134,30 @@ export const UserProvider = ({ children }: IUserProps) => {
     notifyError("Não foi possível excluir sua conta!");
   }
 
+  function getUser(id: string) {
+    const token = localStorage.getItem("@TOKEN");
+    api
+      .get(`/users/${String(id)}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
   function logout() {
     window.localStorage.clear();
     navigate("/login");
   }
+
+  useEffect(() => {
+    if (id) {
+      getUser(id);
+    }
+  }, [id, update]);
 
   return (
     <UserContext.Provider
@@ -147,6 +169,7 @@ export const UserProvider = ({ children }: IUserProps) => {
         user,
         editUser,
         deleteUser,
+        getUser,
       }}
     >
       {children}

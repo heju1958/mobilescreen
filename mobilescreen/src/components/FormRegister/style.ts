@@ -16,13 +16,17 @@ export const Form = styled.form`
   min-height: 22.813rem;
   width: 22rem;
   gap: 0.5rem;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 
+  img {
+    width: 12rem;
+  }
+
   p {
     font-size: 1.1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-weight: 600;
   }
 
@@ -50,7 +54,7 @@ export const Form = styled.form`
     width: 15.313rem;
     height: 3.188rem;
     border: none;
-    margin-top: 2.188rem;
+    margin-top: 1rem;
     cursor: pointer;
   }
 
@@ -60,6 +64,9 @@ export const Form = styled.form`
     border-top: 1px solid var(--blue-1);
     border-radius: 4px;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     p {
       font-weight: normal;
@@ -75,6 +82,12 @@ export const Form = styled.form`
       border: 1px solid var(--blue-1);
       background: white;
       color: var(--blue-1);
+    }
+
+    img {
+      width: 10rem;
+      margin-top: 1rem;
+      margin-right: 3rem;
     }
   }
 `;

@@ -4,8 +4,9 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ILoginFunction, UserContext } from "../../contexts/userContext";
-
 import { useNavigate } from "react-router-dom";
+import catPc from "../../assets/catpc.svg";
+
 const FormLogin = () => {
   const { loginUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const FormLogin = () => {
       <div className="containerNewUser">
         <p>Ainda não possui Conta?</p>
         <button onClick={() => navigate("/")}>Crie agora, é Grátis!</button>
+      <img src={catPc} alt="" />
       </div>
     </Form>
   );

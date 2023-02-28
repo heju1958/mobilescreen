@@ -4,7 +4,7 @@ export const ProfileInfo = styled.div`
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   height: 12rem;
   padding: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   border-radius: 4px;
   display: flex;
   align-items: center;
