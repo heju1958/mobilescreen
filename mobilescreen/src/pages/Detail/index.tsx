@@ -16,7 +16,7 @@ const Detail = () => {
     <div className="container">
       <Header>
         <div>
-          <img src={back} alt="icon back" onClick={() => navigate("/")} />
+          <img src={back} alt="icon back" onClick={() => navigate("/home")} />
           <p className="bold">Detail Quiz</p>
         </div>
         <img src={points} alt="icon points" />

@@ -1,6 +1,9 @@
 import { Title, Header, Rating, TypeQuiz, Method, Card } from "./style";
 import { useNavigate } from "react-router-dom";
 
+import { useContext } from "react";
+import { UserContext } from "../../contexts/userContext";
+
 import alert from "../../assets/alert.svg";
 import elipse from "../../assets/elipse.svg";
 import read from "../../assets/read.svg";
@@ -14,18 +17,22 @@ import star from "../../assets/star.svg";
 import elipse2 from "../../assets/elipse2.svg";
 
 const Home = () => {
+  const { user, logout } = useContext(UserContext);
   const navigate = useNavigate();
 
   return (
     <div className="container">
       <Header>
-        <div>
+        <div className="userData" onClick={() => navigate("/profile")}>
           <img></img>
           <p>
-            Hello, <p className="bold">Jessica</p>
+            Hello, <p className="bold">{user?.username}</p>
           </p>
         </div>
-        <img src={alert} alt="icon alert" />
+        <div>
+          <button onClick={() => logout()}>sair</button>
+          <img src={alert} alt="icon alert" />
+        </div>
       </Header>
       <Rating>
         <img src={elipse} alt="icon elipse" />

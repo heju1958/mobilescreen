@@ -10,8 +10,15 @@ export const Header = styled.div`
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
-  div {
+  button {
+    margin-right: 1rem;
+    height: 2rem;
+    width: 3rem;
+  }
+
+  .userData {
     display: flex;
     align-items: center;
     gap: 1rem;
