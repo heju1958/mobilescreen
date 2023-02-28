@@ -12,6 +12,7 @@ interface IUserContext {
   token: string | null;
   user: UserData | null;
   editUser: (data: IEditFunction) => void;
+  deleteUser: (data: IEditFunction) => void;
 }
 
 // Interface para tipar as props:
@@ -105,9 +106,30 @@ export const UserProvider = ({ children }: IUserProps) => {
         },
       })
       .then((res) => {
+        notifySucess("Alteração realizado com sucesso!");
         setUser(res.data);
       })
       .catch((err) => console.log(err));
+    notifyError("Não foi possível alterar seus dados!");
+  }
+
+  function deleteUser() {
+    const token = localStorage.getItem("@TOKEN");
+    const id = localStorage.getItem("@id");
+
+    api
+      .delete(`/users/${String(id)}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        notifySucess("Conta deletada com sucesso!");
+        navigate("/", { replace: true });
+        window.localStorage.clear();
+      })
+      .catch((err) => console.log(err));
+    notifyError("Não foi possível excluir sua conta!");
   }
 
   function logout() {
@@ -124,6 +146,7 @@ export const UserProvider = ({ children }: IUserProps) => {
         token,
         user,
         editUser,
+        deleteUser,
       }}
     >
       {children}

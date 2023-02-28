@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Header, CardDetail, Rules } from "../Detail/style";
-import { Card } from "../Home/style";
+import { Header, CardDetail } from "../Detail/style";
+import { CardContainer } from "../../components/Card/style";
 
 import back from "../../assets/back.svg";
 import points from "../../assets/points.svg";
@@ -8,6 +8,8 @@ import star from "../../assets/star.svg";
 import sport from "../../assets/sport.svg";
 import question from "../../assets/question.svg";
 import hour from "../../assets/hour.svg";
+
+import Rules from "../../components/Rules";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const Detail = () => {
         </div>
         <img src={points} alt="icon points" />
       </Header>
-      <Card>
+      <CardContainer>
         <div>
           <img src={sport} alt="icon sport" className="sport" />
           <div>
@@ -33,7 +35,7 @@ const Detail = () => {
           <img src={star} alt="icon star" />
           <p>4.8</p>
         </div>
-      </Card>
+      </CardContainer>
       <CardDetail>
         <p className="bold">Brief explanation about this quiz</p>
         <div className="info">
@@ -53,20 +55,7 @@ const Detail = () => {
           </div>
         </div>
       </CardDetail>
-      <Rules>
-        <p className="bold">
-          Please read the text below carefully so you can understand it
-        </p>
-        <li>
-          10 point awarded for a correct answer and no marks for a incorrect
-          answer
-        </li>
-        <li>Tap on options to select the correct answer</li>
-        <li>
-          Click submit if you are sure you want to complete all the quizzes
-        </li>
-        <button onClick={() => navigate("/quiz")}>Get Started</button>
-      </Rules>
+      <Rules />
     </div>
   );
 };

@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Header } from "../Detail/style";
-import { Level, Answer } from "./style";
+import { Level } from "./style";
 
 import back from "../../assets/back.svg";
 import bar3 from "../../assets/bar3.svg";
 import time from "../../assets/time.svg";
+
+import Answer from "../../components/Answer";
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -23,31 +25,7 @@ const Quiz = () => {
         <p>Completed 64%</p>
       </Level>
       <p className="bold">The image below is a field image used for?</p>
-      <Answer>
-        <div className="empty"></div>
-        <div className="correct">
-          <div></div>
-          <p className="bold">Football</p>
-        </div>
-        <div>
-          <div></div>
-          <p className="bold">Basketball</p>
-        </div>
-        <div className="wrong">
-          <div>
-            <p>X</p>
-          </div>
-          <p className="bold">Volleyball</p>
-        </div>
-        <div>
-          <div></div>
-          <p className="bold">Shuttlecock</p>
-        </div>
-        <div className="containerButton">
-          <button>Previous</button>
-          <button>Next</button>
-        </div>
-      </Answer>
+      <Answer />
     </div>
   );
 };

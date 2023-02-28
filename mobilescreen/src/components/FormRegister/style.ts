@@ -53,4 +53,28 @@ export const Form = styled.form`
     margin-top: 2.188rem;
     cursor: pointer;
   }
+
+  .containerNewUser {
+    width: 100%;
+    margin-top: 3rem;
+    border-top: 1px solid var(--blue-1);
+    border-radius: 4px;
+    padding: 2rem;
+
+    p {
+      font-weight: normal;
+    }
+
+    button {
+      border: var(--blue-1);
+      background: var(--blue-1);
+      height: 3rem;
+      width: 100%;
+    }
+    button:hover {
+      border: 1px solid var(--blue-1);
+      background: white;
+      color: var(--blue-1);
+    }
+  }
 `;
