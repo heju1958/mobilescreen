@@ -16,7 +16,10 @@
 	Rotas
 </h3>
 
-- `/ - Home Screen`
+- `/ - Register Screen`
+- `/login - Login Screen`
+- `/profile - Profile Screen`
+- `/home - Home Screen`
 - `/detail - Detail Screen`
 - `/quiz - Quiz Screen`
 
