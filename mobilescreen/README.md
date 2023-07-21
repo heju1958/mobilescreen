@@ -1,5 +1,5 @@
 <h1 align = "center">
-	<img src="https://www.svgrepo.com/show/489248/mobile-features.svg" alt='' width='80px' height='40px'/>
+	<img src="https://www.svgrepo.com/show/489248/mobile-features.svg" alt='' width='80px' height='80px'/>
 	Mobile Screen
 </h1>
 
